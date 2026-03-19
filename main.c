@@ -41,6 +41,9 @@ bool validatePadding_withLength(unsigned char string[], int stringLength, unsign
     }
 
     int numberOfPaddingBytes = string[stringLength-1];
+    if(numberOfPaddingBytes == 0){
+        return false;
+    }
     int bytesRead = 0;
     for(int i=0;i<numberOfPaddingBytes;i++){
         if(string[stringLength-i-1] == numberOfPaddingBytes){
@@ -51,7 +54,7 @@ bool validatePadding_withLength(unsigned char string[], int stringLength, unsign
     
     if(bytesRead == numberOfPaddingBytes){
         (*numberOfBytesWritten) = stringLength-numberOfPaddingBytes;
-        unsigned char* tmpResult = calloc(*numberOfBytesWritten,sizeof(unsigned char));
+        unsigned char* tmpResult = calloc((*numberOfBytesWritten)+1,sizeof(unsigned char));
         for(int i=0;i<stringLength-numberOfPaddingBytes;i++){
             tmpResult[i] = string[i];
         }
